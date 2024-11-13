@@ -11,7 +11,6 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Repository
 public class MemoryReservationRepository implements ReservationRepository{
 
     private static Map<Long, Reservation> reservationStore = new ConcurrentHashMap<>();
