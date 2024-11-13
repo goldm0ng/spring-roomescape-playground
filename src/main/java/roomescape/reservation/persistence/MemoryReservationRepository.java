@@ -1,7 +1,8 @@
-package roomescape.reservation.persistence;
+package roomescape.repository;
 
 import org.springframework.stereotype.Repository;
-import roomescape.reservation.domain.Reservation;
+import roomescape.domain.Reservation;
+import roomescape.dto.ReservationDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,20 +11,21 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Repository
-public class MemoryReservationRepository implements ReservationRepository {
+public class MemoryReservationRepository implements ReservationRepository{
 
     private static Map<Long, Reservation> reservationStore = new ConcurrentHashMap<>();
     private static AtomicLong index = new AtomicLong(1);
 
     @Override
-    public Reservation save(Reservation reservation) {
+    public Reservation save(ReservationDto reservationDto) {
 
         Long reservationId = index.getAndIncrement();
-        reservation.setId(reservationId);
-        reservationStore.put(reservationId,reservation);
+        Reservation savedReservation = new Reservation(
+                reservationId, reservationDto.getName(), reservationDto.getDate(), reservationDto.getTime());
 
-        return reservation;
+        reservationStore.put(reservationId,savedReservation);
+
+        return savedReservation;
     }
 
     @Override
