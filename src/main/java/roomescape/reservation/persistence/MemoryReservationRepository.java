@@ -2,7 +2,6 @@ package roomescape.repository;
 
 import org.springframework.stereotype.Repository;
 import roomescape.domain.Reservation;
-import roomescape.dto.ReservationDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +16,13 @@ public class MemoryReservationRepository implements ReservationRepository{
     private static AtomicLong index = new AtomicLong(1);
 
     @Override
-    public Reservation save(ReservationDto reservationDto) {
+    public Reservation save(Reservation reservation) {
 
         Long reservationId = index.getAndIncrement();
-        Reservation savedReservation = new Reservation(
-                reservationId, reservationDto.getName(), reservationDto.getDate(), reservationDto.getTime());
+        reservation.setId(reservationId);
+        reservationStore.put(reservationId,reservation);
 
-        reservationStore.put(reservationId,savedReservation);
-
-        return savedReservation;
+        return reservation;
     }
 
     @Override
