@@ -15,16 +15,20 @@ public class ReservationService {
 
     private final ReservationRepository repository;
 
-    public List<Reservation> checkReservations(){
-        return repository.findAll();
+    public Reservation addReservation(ReservationDto reservationDto){
+        Reservation reservation = convertToEntity(reservationDto);
+        return repository.save(reservation);
     }
 
-    public Reservation addReservation(ReservationDto reservationDto){
-        return repository.save(reservationDto);
+    public List<Reservation> checkReservations(){
+        return repository.findAll();
     }
 
     public Optional<Reservation> deleteReservation(Long reservationId){
         return repository.delete(reservationId);
     }
 
+    private Reservation convertToEntity(ReservationDto dto) {
+        return new Reservation(null, dto.getName(), dto.getDate(), dto.getTime());
+    }
 }

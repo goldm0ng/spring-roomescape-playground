@@ -20,4 +20,7 @@ public class Reservation {
         this.time = time;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
