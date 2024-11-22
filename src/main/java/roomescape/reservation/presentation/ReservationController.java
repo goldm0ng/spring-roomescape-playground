@@ -32,10 +32,8 @@ public class ReservationController {
 
     @DeleteMapping("/reservations/{reservationId}")
     public ResponseEntity<Void> deleteReservation(@PathVariable Long reservationId) {
-        Optional<Reservation> deleteReservation = reservationService.deleteReservation(reservationId);
-        if (deleteReservation.isEmpty()) {
-            throw new NotFoundReservationException();
-        }
+        Reservation deletedReservation = reservationService.deleteReservation(reservationId)
+                .orElseThrow(NotFoundReservationException::new);
 
         return ResponseEntity.noContent().build();
     }
