@@ -1,11 +1,11 @@
 package roomescape.reservation.persistence;
 
 import roomescape.reservation.domain.Reservation;
+import roomescape.reservation.presentation.exception.NotFoundReservationException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -25,8 +25,12 @@ public class MemoryReservationRepository implements ReservationRepository {
     }
 
     @Override
-    public Optional<Reservation> findById(Long reservationId) {
-        return Optional.ofNullable(reservationStore.get(reservationId));
+    public Reservation findById(Long reservationId) {
+        Reservation reservation = reservationStore.get(reservationId);
+        if (reservation == null) {
+            throw new NotFoundReservationException();
+        }
+        return reservation;
     }
 
     @Override
@@ -35,9 +39,8 @@ public class MemoryReservationRepository implements ReservationRepository {
     }
 
     @Override
-    public Optional<Reservation> delete(Long reservationId) {
-        Optional<Reservation> reservation = findById(reservationId);
-
-        return Optional.ofNullable(reservationStore.remove(reservationId));
+    public void delete(Long reservationId) {
+        Reservation deletedReservation = this.findById(reservationId);
+        reservationStore.remove(deletedReservation.getId());
     }
 }
