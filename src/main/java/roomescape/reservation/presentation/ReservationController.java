@@ -6,12 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import roomescape.reservation.domain.Reservation;
 import roomescape.reservation.presentation.dto.ReservationDto;
-import roomescape.reservation.presentation.exception.NotFoundReservationException;
 import roomescape.reservation.business.ReservationService;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,9 +30,7 @@ public class ReservationController {
 
     @DeleteMapping("/reservations/{reservationId}")
     public ResponseEntity<Void> deleteReservation(@PathVariable Long reservationId) {
-        Reservation deletedReservation = reservationService.deleteReservation(reservationId)
-                .orElseThrow(NotFoundReservationException::new);
-
+        reservationService.deleteReservation(reservationId);
         return ResponseEntity.noContent().build();
     }
 }

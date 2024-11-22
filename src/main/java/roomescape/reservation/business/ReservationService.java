@@ -7,7 +7,6 @@ import roomescape.reservation.presentation.dto.ReservationDto;
 import roomescape.reservation.persistence.ReservationRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,8 +23,8 @@ public class ReservationService {
         return repository.findAll();
     }
 
-    public Optional<Reservation> deleteReservation(Long reservationId) {
-        return repository.delete(reservationId);
+    public void deleteReservation(Long reservationId) {
+        repository.delete(reservationId);
     }
 
     private Reservation convertToEntity(ReservationDto reservationDto) {

@@ -8,10 +8,10 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import roomescape.reservation.domain.Reservation;
+import roomescape.reservation.presentation.exception.NotFoundReservationException;
 
 import java.sql.PreparedStatement;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -38,14 +38,13 @@ public class JdbcReservationRepository implements ReservationRepository {
     }
 
     @Override
-    public Optional<Reservation> findById(Long reservationId) {
+    public Reservation findById(Long reservationId) {
         String sql = "select id, name, date, time from reservation where id = ?";
 
         try {
-            Reservation reservation = jdbcTemplate.queryForObject(sql, reservationMapper(), reservationId);
-            return Optional.of(reservation);
+            return jdbcTemplate.queryForObject(sql, reservationMapper(), reservationId);
         } catch (EmptyResultDataAccessException e) {
-            return Optional.empty();
+            throw new NotFoundReservationException();
         }
     }
 
@@ -57,16 +56,12 @@ public class JdbcReservationRepository implements ReservationRepository {
     }
 
     @Override
-    public Optional<Reservation> delete(Long reservationId) {
-        Optional<Reservation> reservation = this.findById(reservationId);
-        if (reservation.isEmpty()) {
-            return Optional.empty();
-        }
+    public void delete(Long reservationId) {
+        Reservation deletedReservation = this.findById(reservationId);
 
         String sql = "delete from reservation where id = ?";
-        jdbcTemplate.update(sql, reservationId);
+        jdbcTemplate.update(sql, deletedReservation.getId());
 
-        return reservation;
     }
 
     private RowMapper<Reservation> reservationMapper() {
