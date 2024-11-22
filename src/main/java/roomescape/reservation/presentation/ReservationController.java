@@ -20,7 +20,7 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @GetMapping("/reservations")
-    public ResponseEntity<List<Reservation>> readReservation(){
+    public ResponseEntity<List<Reservation>> readReservation() {
         return ResponseEntity.ok(reservationService.checkReservations());
     }
 
@@ -31,9 +31,9 @@ public class ReservationController {
     }
 
     @DeleteMapping("/reservations/{reservationId}")
-    public ResponseEntity<Void> deleteReservation(@PathVariable Long reservationId){
+    public ResponseEntity<Void> deleteReservation(@PathVariable Long reservationId) {
         Optional<Reservation> deleteReservation = reservationService.deleteReservation(reservationId);
-        if (deleteReservation.isEmpty()){
+        if (deleteReservation.isEmpty()) {
             throw new NotFoundReservationException();
         }
 
