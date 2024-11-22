@@ -21,19 +21,19 @@ public class ReservationExceptionHandler {
 
         for (FieldError error : e.getBindingResult().getFieldErrors()) {
             errors.put(error.getField(), error.getDefaultMessage());
-            log.info("validation error on field {} : {}", error.getField(),error.getDefaultMessage());
+            log.info("validation error on field {} : {}", error.getField(), error.getDefaultMessage());
         }
 
         return ResponseEntity.badRequest().body(errors);
     }
 
     @ExceptionHandler(NotFoundReservationException.class)
-    public ResponseEntity<String> handleNotFoundReservationException(NotFoundReservationException e){
+    public ResponseEntity<String> handleNotFoundReservationException(NotFoundReservationException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception e){
+    public ResponseEntity<String> handleException(Exception e) {
         return ResponseEntity.internalServerError().body(e.getMessage());
     }
 }

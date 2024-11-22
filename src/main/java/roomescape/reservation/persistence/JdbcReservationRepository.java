@@ -28,8 +28,8 @@ public class JdbcReservationRepository implements ReservationRepository {
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
             ps.setString(1, reservation.getName());
-            ps.setString(2,reservation.getDate());
-            ps.setString(3,reservation.getTime());
+            ps.setString(2, reservation.getDate());
+            ps.setString(3, reservation.getTime());
             return ps;
         }, keyHolder);
 
@@ -41,10 +41,10 @@ public class JdbcReservationRepository implements ReservationRepository {
     public Optional<Reservation> findById(Long reservationId) {
         String sql = "select id, name, date, time from reservation where id = ?";
 
-        try{
+        try {
             Reservation reservation = jdbcTemplate.queryForObject(sql, reservationMapper(), reservationId);
             return Optional.of(reservation);
-        } catch(EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
         }
     }
@@ -59,7 +59,7 @@ public class JdbcReservationRepository implements ReservationRepository {
     @Override
     public Optional<Reservation> delete(Long reservationId) {
         Optional<Reservation> reservation = this.findById(reservationId);
-        if (reservation.isEmpty()){
+        if (reservation.isEmpty()) {
             return Optional.empty();
         }
 

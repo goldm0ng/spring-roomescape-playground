@@ -19,7 +19,7 @@ public class MemoryReservationRepository implements ReservationRepository {
 
         Long reservationId = index.getAndIncrement();
         reservation.setId(reservationId);
-        reservationStore.put(reservationId,reservation);
+        reservationStore.put(reservationId, reservation);
 
         return reservation;
     }

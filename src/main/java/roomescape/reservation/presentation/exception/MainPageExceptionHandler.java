@@ -9,7 +9,7 @@ import roomescape.MainPageController;
 @ControllerAdvice(assignableTypes = MainPageController.class)
 public class MainPageExceptionHandler {
     @ExceptionHandler(Exception.class)
-    public String handleException(Exception e){
+    public String handleException(Exception e) {
         log.error("error: " + e.getMessage());
         return "error/500"; //view 렌더링 페이지는 만들지 않음!
     }

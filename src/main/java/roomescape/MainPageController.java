@@ -12,7 +12,7 @@ public class MainPageController {
     }
 
     @GetMapping("/reservation")
-    public String showReservationForm(){
+    public String showReservationForm() {
         return "reservation";
     }
 }
