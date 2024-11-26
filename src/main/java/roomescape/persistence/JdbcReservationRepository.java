@@ -1,4 +1,4 @@
-package roomescape.reservation.persistence;
+package roomescape.persistence;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -7,8 +7,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import roomescape.reservation.domain.Reservation;
-import roomescape.reservation.presentation.exception.NotFoundReservationException;
+import roomescape.domain.Reservation;
+import roomescape.exception.NotFoundReservationException;
 
 import java.sql.PreparedStatement;
 import java.util.List;

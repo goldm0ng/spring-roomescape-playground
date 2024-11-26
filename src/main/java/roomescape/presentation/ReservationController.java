@@ -1,12 +1,12 @@
-package roomescape.reservation.presentation;
+package roomescape.presentation;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import roomescape.reservation.domain.Reservation;
-import roomescape.reservation.presentation.dto.ReservationDto;
-import roomescape.reservation.business.ReservationService;
+import roomescape.domain.Reservation;
+import roomescape.presentation.dto.ReservationDto;
+import roomescape.business.ReservationService;
 
 import java.net.URI;
 import java.util.List;

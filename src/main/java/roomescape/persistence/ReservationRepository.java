@@ -1,6 +1,6 @@
-package roomescape.reservation.persistence;
+package roomescape.persistence;
 
-import roomescape.reservation.domain.Reservation;
+import roomescape.domain.Reservation;
 
 import java.util.List;
 

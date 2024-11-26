@@ -1,10 +1,10 @@
-package roomescape.reservation.business;
+package roomescape.business;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import roomescape.reservation.domain.Reservation;
-import roomescape.reservation.presentation.dto.ReservationDto;
-import roomescape.reservation.persistence.ReservationRepository;
+import roomescape.domain.Reservation;
+import roomescape.presentation.dto.ReservationDto;
+import roomescape.persistence.ReservationRepository;
 
 import java.util.List;
 

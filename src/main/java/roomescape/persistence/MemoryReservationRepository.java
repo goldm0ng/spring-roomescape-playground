@@ -1,7 +1,7 @@
-package roomescape.reservation.persistence;
+package roomescape.persistence;
 
-import roomescape.reservation.domain.Reservation;
-import roomescape.reservation.presentation.exception.NotFoundReservationException;
+import roomescape.domain.Reservation;
+import roomescape.exception.NotFoundReservationException;
 
 import java.util.ArrayList;
 import java.util.List;
