@@ -15,4 +15,7 @@ public class MainPageController {
     public String showReservationForm() {
         return "reservation";
     }
+
+    @GetMapping("/time")
+    public String showTimeForm() { return "time"; }
 }
