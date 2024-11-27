@@ -16,7 +16,7 @@ import java.util.Map;
 public class TimeExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String,String>> handleValidationExceptions(MethodArgumentNotValidException e){
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException e) {
         Map<String, String> errors = new HashMap<>();
 
         for (FieldError error : e.getBindingResult().getFieldErrors()) {
@@ -28,12 +28,12 @@ public class TimeExceptionHandler {
     }
 
     @ExceptionHandler(NotFoundTimeException.class)
-    public ResponseEntity<String> handleNotFoundTimeException(NotFoundTimeException e){
+    public ResponseEntity<String> handleNotFoundTimeException(NotFoundTimeException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception e){
+    public ResponseEntity<String> handleException(Exception e) {
         return ResponseEntity.internalServerError().body(e.getMessage());
     }
 }

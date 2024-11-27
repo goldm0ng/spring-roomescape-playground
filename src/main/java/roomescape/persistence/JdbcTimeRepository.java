@@ -15,7 +15,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class JdbcTimeRepository implements TimeRepository{
+public class JdbcTimeRepository implements TimeRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -25,8 +25,8 @@ public class JdbcTimeRepository implements TimeRepository{
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        jdbcTemplate.update(connection ->{
-            PreparedStatement ps = connection.prepareStatement(sql, new String []{"id"});
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
             ps.setString(1, time.getTime());
             return ps;
         }, keyHolder);
@@ -39,9 +39,9 @@ public class JdbcTimeRepository implements TimeRepository{
     public Time findById(Long timeId) {
         String sql = "select id, time from time where id = ?";
 
-        try{
+        try {
             return jdbcTemplate.queryForObject(sql, timeMapper(), timeId);
-        } catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             throw new NotFoundTimeException();
         }
     }

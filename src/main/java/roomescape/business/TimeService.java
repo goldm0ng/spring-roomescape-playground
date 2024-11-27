@@ -14,16 +14,16 @@ public class TimeService {
 
     private final JdbcTimeRepository repository;
 
-    public Time addTime(TimeDto timeDto){
+    public Time addTime(TimeDto timeDto) {
         Time time = convertToEntity(timeDto);
         return repository.save(time);
     }
 
-    public List<Time> checkTimes(){
+    public List<Time> checkTimes() {
         return repository.findAll();
     }
 
-    public void deleteTime(Long timeId){
+    public void deleteTime(Long timeId) {
         repository.delete(timeId);
     }
 
