@@ -2,6 +2,7 @@ package roomescape.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -29,6 +30,11 @@ public class ReservationExceptionHandler {
 
     @ExceptionHandler(NotFoundReservationException.class)
     public ResponseEntity<String> handleNotFoundReservationException(NotFoundReservationException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<String> handleInvalidTypeException(HttpMessageNotReadableException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 
