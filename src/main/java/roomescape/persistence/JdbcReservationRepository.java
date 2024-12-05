@@ -8,7 +8,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import roomescape.domain.Reservation;
-import roomescape.domain.Time;
+import roomescape.domain.ReservationTime;
 import roomescape.exception.NotFoundReservationException;
 
 import java.sql.PreparedStatement;
@@ -73,7 +73,7 @@ public class JdbcReservationRepository implements ReservationRepository {
     private RowMapper<Reservation> reservationMapperForFindById() {
         return ((rs, rowNum) -> {
 
-            Time time = new Time(rs.getLong("time_id"), null);
+            ReservationTime time = new ReservationTime(rs.getLong("time_id"), null);
 
             return new Reservation(
                     rs.getLong("id"),
@@ -86,7 +86,7 @@ public class JdbcReservationRepository implements ReservationRepository {
     private RowMapper<Reservation> reservationMapperForFindAll() {
         return ((rs, rowNum) -> {
 
-            Time time = new Time(rs.getLong("time_id"), rs.getString("time_value"));
+            ReservationTime time = new ReservationTime(rs.getLong("time_id"), rs.getString("time_value"));
 
             return new Reservation(
                     rs.getLong("id"),

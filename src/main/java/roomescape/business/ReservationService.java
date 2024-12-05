@@ -3,9 +3,9 @@ package roomescape.business;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import roomescape.domain.Reservation;
-import roomescape.domain.Time;
+import roomescape.domain.ReservationTime;
 import roomescape.persistence.JdbcReservationRepository;
-import roomescape.persistence.JdbcTimeRepository;
+import roomescape.persistence.JdbcReservationTimeRepository;
 import roomescape.presentation.dto.ReservationDto;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 public class ReservationService {
 
     private final JdbcReservationRepository reservationRepository;
-    private final JdbcTimeRepository timeRepository;
+    private final JdbcReservationTimeRepository timeRepository;
 
     public Reservation addReservation(ReservationDto reservationDto) {
         Reservation reservation = convertToReservationEntity(reservationDto);
@@ -31,11 +31,11 @@ public class ReservationService {
     }
 
     private Reservation convertToReservationEntity(ReservationDto reservationDto) {
-        Time time = convertToTimeEntity(reservationDto);
+        ReservationTime time = convertToTimeEntity(reservationDto);
         return new Reservation(null, reservationDto.name(), reservationDto.date(), time);
     }
 
-    private Time convertToTimeEntity(ReservationDto reservationDto) {
+    private ReservationTime convertToTimeEntity(ReservationDto reservationDto) {
         Long timeId = reservationDto.time();
         return timeRepository.findById(timeId);
     }

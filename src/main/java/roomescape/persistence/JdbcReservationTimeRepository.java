@@ -7,20 +7,20 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import roomescape.domain.Time;
-import roomescape.exception.NotFoundTimeException;
+import roomescape.domain.ReservationTime;
+import roomescape.exception.NotFoundReservationTimeException;
 
 import java.sql.PreparedStatement;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class JdbcTimeRepository implements TimeRepository {
+public class JdbcReservationTimeRepository implements ReservationTimeRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
     @Override
-    public Time save(Time time) {
+    public ReservationTime save(ReservationTime time) {
         String sql = "insert into time (time) values (?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -32,22 +32,22 @@ public class JdbcTimeRepository implements TimeRepository {
         }, keyHolder);
 
         Long generatedAutoId = keyHolder.getKey().longValue();
-        return new Time(generatedAutoId, time.getTime());
+        return new ReservationTime(generatedAutoId, time.getTime());
     }
 
     @Override
-    public Time findById(Long timeId) {
+    public ReservationTime findById(Long timeId) {
         String sql = "select id, time from time where id = ?";
 
         try {
             return jdbcTemplate.queryForObject(sql, timeMapper(), timeId);
         } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundTimeException();
+            throw new NotFoundReservationTimeException();
         }
     }
 
     @Override
-    public List<Time> findAll() {
+    public List<ReservationTime> findAll() {
         String sql = "select id, time from time";
 
         return jdbcTemplate.query(sql, timeMapper());
@@ -55,15 +55,15 @@ public class JdbcTimeRepository implements TimeRepository {
 
     @Override
     public void delete(Long timeId) {
-        Time deletedTime = this.findById(timeId);
+        ReservationTime deletedTime = this.findById(timeId);
 
         String sql = "delete from time where id = ?";
         jdbcTemplate.update(sql, deletedTime.getId());
     }
 
-    private RowMapper<Time> timeMapper() {
+    private RowMapper<ReservationTime> timeMapper() {
         return ((rs, rowNum) -> {
-            return new Time(
+            return new ReservationTime(
                     rs.getLong("id"),
                     rs.getString("time")
             );

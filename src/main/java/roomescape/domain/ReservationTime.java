@@ -3,15 +3,15 @@ package roomescape.domain;
 import lombok.Getter;
 
 @Getter
-public class Time {
+public class ReservationTime {
 
     private Long id;
     private String time;
 
-    public Time() {
+    public ReservationTime() {
     }
 
-    public Time(Long id, String time) {
+    public ReservationTime(Long id, String time) {
         this.id = id;
         this.time = time;
     }
