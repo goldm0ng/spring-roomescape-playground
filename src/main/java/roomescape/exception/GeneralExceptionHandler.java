@@ -2,18 +2,18 @@ package roomescape.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import roomescape.presentation.TimeController;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@ControllerAdvice
 @Slf4j
-@ControllerAdvice(assignableTypes = TimeController.class)
-public class TimeExceptionHandler {
+public class GeneralExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException e) {
@@ -27,8 +27,8 @@ public class TimeExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
-    @ExceptionHandler(NotFoundTimeException.class)
-    public ResponseEntity<String> handleNotFoundTimeException(NotFoundTimeException e) {
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<String> handleInvalidTypeException(HttpMessageNotReadableException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 
